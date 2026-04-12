@@ -83,6 +83,17 @@ const elements: Element[] = [
     locator: (page: Page): Locator => page.getByRole('button', { name: 'Search (Ctrl+K)' }),
     name: 'Search (Ctrl+K)',
   },
+  {
+    locator: (page: Page): Locator =>
+      page.getByRole('heading', { name: 'Playwright enables reliable' }),
+    name: 'Title',
+    text: 'Playwright enables reliable web automation for testing, scripting, and AI agents.',
+  },
+  {
+    locator: (page: Page): Locator => page.getByText('One API to drive Chromium,'),
+    name: 'Description',
+    text: 'One API to drive Chromium, Firefox, and WebKit — in your tests, your scripts, and your agent workflows. Available for TypeScript, Python, .NET, and Java.',
+  },
 ];
 
 test.describe('тесты главной страницы', () => {
@@ -90,7 +101,7 @@ test.describe('тесты главной страницы', () => {
     await page.goto('https://playwright.dev/');
   });
 
-  test('проверка отображения элементов хедера', async ({ page }) => {
+  test('проверка отображения элементов главной страницы', async ({ page }) => {
     for (const { locator, name } of elements) {
       await test.step(`проверка отображения элемента: ${name}`, async () => {
         await expect(locator(page)).toBeVisible();
@@ -98,10 +109,10 @@ test.describe('тесты главной страницы', () => {
     }
   });
 
-  test('проверка названия элементов хедера', async ({ page }) => {
+  test('проверка текста элементов главной страницы', async ({ page }) => {
     for (const { locator, name, text } of elements) {
       if (text) {
-        await test.step(`проверка названия элемента: ${name}`, async () => {
+        await test.step(`проверка текста элемента: ${name}`, async () => {
           await expect(locator(page)).toContainText(text);
         });
       }
@@ -122,17 +133,6 @@ test.describe('тесты главной страницы', () => {
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
     await page.getByRole('button', { name: 'Switch between dark and light' }).dblclick();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-  });
-
-  test('Проверка элементов основного контента', async ({ page }) => {
-    await expect(page.getByRole('heading', { name: 'Playwright enables reliable' })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Playwright enables reliable' })).toContainText(
-      'Playwright enables reliable web automation for testing, scripting, and AI agents.',
-    );
-    await expect(page.getByText('One API to drive Chromium,')).toBeVisible();
-    await expect(page.getByText('One API to drive Chromium,')).toContainText(
-      'One API to drive Chromium, Firefox, and WebKit — in your tests, your scripts, and your agent workflows. Available for TypeScript, Python, .NET, and Java.',
-    );
   });
 
   test('Проверка отображения и перехода по ссылке Get started', async ({ page }) => {
