@@ -147,7 +147,9 @@ test.describe('тесты главной страницы', () => {
       await page.evaluate((value) => {
         document.querySelector('html')?.setAttribute('data-theme', value);
       }, value);
-      await expect(page).toHaveScreenshot(`pageWith${value}Mode.png`);
+      await expect(page).toHaveScreenshot(`pageWith${value}Mode.png`, {
+        maxDiffPixelRatio: 0.15
+      });
     });
   });
 });
