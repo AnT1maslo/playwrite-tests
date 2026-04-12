@@ -25,3 +25,13 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+    - name: Update snapshots
+      run: npx playwright test --update-snapshots
+  
+    - name: Commit snapshots
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add tests/MainPage.spec.ts-snapshots/
+        git commit -m "Add Linux snapshots" || echo "No changes"
+        git push
