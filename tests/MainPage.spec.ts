@@ -96,6 +96,8 @@ const elements: Element[] = [
   },
 ];
 
+const lightMode = ['light', 'dark'];
+
 test.describe('тесты главной страницы', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('https://playwright.dev/');
@@ -135,9 +137,17 @@ test.describe('тесты главной страницы', () => {
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   });
 
-  test('Проверка отображения и перехода по ссылке Get started', async ({ page }) => {
+  test('проверка отображения и перехода по ссылке Get started', async ({ page }) => {
     await expect(page.getByRole('link', { name: 'Get started' })).toBeVisible();
     await page.getByRole('link', { name: 'Get started' }).click();
     await expect(page).toHaveURL('https://playwright.dev/docs/intro');
+  });
+  lightMode.forEach((value) => {
+    test(`проверка стилей активного ${value} мода`, async ({ page }) => {
+      await page.evaluate((value) => {
+        document.querySelector('html')?.setAttribute('data-theme', value);
+      }, value);
+      await expect(page).toHaveScreenshot(`pageWith${value}Mode.png`);
+    });
   });
 });
