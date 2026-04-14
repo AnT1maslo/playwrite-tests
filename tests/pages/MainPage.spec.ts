@@ -1,27 +1,21 @@
-import { test, expect, Locator } from '@playwright/test';
+import {test, expect} from '../fixtures/mainPage'
 import { MainPage } from '../models/MainPage';
 
-let mainPage: MainPage;
-
 test.describe('тесты главной страницы', () => {
-  test.beforeEach(async ({ page }) => {
-    mainPage = new MainPage(page);
-    await mainPage.openMainPage();
-  });
 
-  test('проверка отображения элементов главной страницы', async () => {
+  test('проверка отображения элементов главной страницы', async ({ mainPage }) => {
     await mainPage.checkElementsVisability();
   });
 
-  test('проверка текста элементов главной страницы', async () => {
+  test('проверка текста элементов главной страницы', async ({ mainPage }) => {
     await mainPage.checkElementsText();
   });
 
-  test('проверка атрибута href элементов хедера', async () => {
+  test('проверка атрибута href элементов хедера', async ({ mainPage }) => {
     await mainPage.checkElementsHrefAttribute();
   });
 
-  test('проверка переключения с light на dark мод', async () => {
+  test('проверка переключения с light на dark мод', async ({ mainPage }) => {
     await test.step('нажатие на иконку переключения Light мода', async () => {
       await mainPage.switchBetweenLightAndDarkMode();
     });
@@ -30,7 +24,7 @@ test.describe('тесты главной страницы', () => {
     });
   });
 
-  test(`проверка стилей активного light мода`, async () => {
+  test(`проверка стилей активного light мода`, async ({ mainPage }) => {
     await test.step('установка light мода', async () => {
       await mainPage.setLightMode();
     });
@@ -39,7 +33,7 @@ test.describe('тесты главной страницы', () => {
     });
   });
 
-  test(`проверка стилей активного dark мода`, async () => {
+  test(`проверка стилей активного dark мода`, async ({ mainPage }) => {
     await test.step('установка dark мода', async () => {
       await mainPage.setDarkMode();
     });
