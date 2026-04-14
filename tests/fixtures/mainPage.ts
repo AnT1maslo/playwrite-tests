@@ -4,7 +4,6 @@ import { MainPage } from '../models/MainPage';
 // Declare the types of your fixtures.
 type MyFixtures = {
   mainPage: MainPage;
-
 };
 
 // Extend base test by providing "mainPage"
@@ -13,11 +12,9 @@ export const test = base.extend<MyFixtures>({
   mainPage: async ({ page }, use) => {
     // Set up the fixture.
     const mainPage = new MainPage(page);
-    await mainPage.openMainPage()
-    // Use the fixture value in the test. 
+    await mainPage.openMainPage();
+    // Use the fixture value in the test.
     await use(mainPage);
-
-
-  }
+  },
 });
 export { expect } from '@playwright/test';

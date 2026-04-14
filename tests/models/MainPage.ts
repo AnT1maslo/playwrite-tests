@@ -55,15 +55,6 @@ export class MainPage {
         },
       },
       {
-        locator: (page: Page): Locator => page.getByRole('link', { name: 'Community' }),
-        name: 'Community',
-        text: 'Community',
-        attribute: {
-          type: 'href',
-          value: '/community/welcome',
-        },
-      },
-      {
         locator: (page: Page): Locator => page.getByRole('link', { name: 'GitHub repository' }),
         name: 'GitHub repository',
         attribute: {

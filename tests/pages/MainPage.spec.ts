@@ -1,8 +1,6 @@
-import {test, expect} from '../fixtures/mainPage'
-import { MainPage } from '../models/MainPage';
+import { test } from '../fixtures/mainPage';
 
 test.describe('тесты главной страницы', () => {
-
   test('проверка отображения элементов главной страницы', async ({ mainPage }) => {
     await mainPage.checkElementsVisability();
   });
